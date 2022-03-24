@@ -1,0 +1,29 @@
+{
+  "name": "unshorter",
+  "version": "1.0.0",
+  "description": "Minimalist and lightweight URL unshortener for Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aliazhar-id/unshorter.git"
+  },
+  "keywords": [
+    "unshort",
+    "unshorter",
+    "unshorten",
+    "unshort-url"
+  ],
+  "author": {
+    "name": "aliazhar",
+    "email": "email@aliazhar.my.id",
+    "url": "https://aliazhar.my.id"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aliazhar-id/unshorter/issues"
+  },
+  "homepage": "https://github.com/aliazhar-id/unshorter#readme"
+}
