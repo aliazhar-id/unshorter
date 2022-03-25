@@ -21,7 +21,7 @@
     "email": "email@aliazhar.my.id",
     "url": "https://aliazhar.my.id"
   },
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/aliazhar-id/unshorter/issues"
   },
