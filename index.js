@@ -1,16 +1,18 @@
 const https = require('https');
 const http = require('http');
 
-module.exports = async (url) => {
+module.exports = async (url, options = {}) => {
   return new Promise((resolve, reject) => {
     try {
       const tracer = (urls) => {
-        const protocol = urls.replace(/:?\/\/.*/g, '');
+        let protocol = https;
 
-        if (protocol.length > 5) throw new ReferenceError('Something wrong with the protocol');
+        if (urls.slice(0, 5) === 'http:') {
+          protocol = http;
+        }
 
-        eval(protocol)
-          .get(urls, { headers: { 'User-Agent': 'okhttp' } }, ({ statusCode, headers }) => {
+        protocol
+          .get(urls, options, ({ statusCode, headers }) => {
             if ([301, 302, 303, 307, 308].includes(statusCode)) {
               if (headers.location) {
                 tracer(headers.location);
