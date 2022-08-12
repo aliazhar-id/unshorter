@@ -4,9 +4,7 @@ const http = require('http');
 module.exports = async (url, options = {}) => {
   return new Promise((resolve, reject) => {
     try {
-      const tracer = (urls) => {
-        let protocol = https;
-
+      const tracer = (urls, protocol = https) => {
         if (urls.slice(0, 5) === 'http:') {
           protocol = http;
         }
