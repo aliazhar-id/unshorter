@@ -2,9 +2,20 @@
   "name": "unshorter",
   "version": "1.2.1",
   "description": "Minimalist and lightweight URL unshortener for Node.js",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "prepublishOnly": "npm run build",
+    "test": "npm run build -- --watch src"
   },
   "repository": {
     "type": "git",
@@ -25,5 +36,10 @@
   "bugs": {
     "url": "https://github.com/aliazhar-id/unshorter/issues"
   },
-  "homepage": "https://github.com/aliazhar-id/unshorter#readme"
+  "homepage": "https://github.com/aliazhar-id/unshorter#readme",
+  "devDependencies": {
+    "@types/node": "^18.7.2",
+    "tsup": "^6.2.2",
+    "typescript": "^4.7.4"
+  }
 }
