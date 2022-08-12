@@ -1,32 +1,30 @@
-const http = require("http");
-const https = require("https");
+const https = require('https');
+const http = require('http');
 
 module.exports = async (url, options = {}) => {
   return new Promise((resolve, reject) => {
     try {
-      const tracer = (urls) => {
-        function choose(protocol) {
-          protocol
-            .get(urls, options, ({ statusCode, headers }) => {
-              if ([301, 302, 303, 307, 308].includes(statusCode)) {
-                if (headers.location) {
-                  tracer(headers.location);
-                  return;
-                }
+      const tracer = (urls, protocol = https) => {
+        if (urls.slice(0, 5) === 'http:') {
+          protocol = http;
+        }
+
+        protocol
+          .get(urls, options, ({ statusCode, headers }) => {
+            if ([301, 302, 303, 307, 308].includes(statusCode)) {
+              if (headers.location) {
+                tracer(headers.location);
+                return;
               }
-              resolve(urls);
-            })
-            .on("error", (e) => reject(new Error(e?.message)));
-        }
-        try {
-          choose(http);
-        } catch {
-          choose(https);
-        }
+            }
+            resolve(urls);
+          })
+          .on('error', (err) => reject(err));
       };
+
       tracer(url);
     } catch (err) {
-      reject(new Error(err?.message));
+      reject(err);
     }
   });
 };
