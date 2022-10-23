@@ -10,10 +10,14 @@ module.exports = async (url, options = {}) => {
         }
 
         protocol
-          .get(urls, options, ({ statusCode, headers }) => {
+          .get(urls, options, ({ statusCode, headers: { location }, socket: {_host: host} }) => {
             if ([301, 302, 303, 307, 308].includes(statusCode)) {
-              if (headers.location) {
-                tracer(headers.location);
+              if (location) {
+                if (location.startsWith('/')) {
+                  location = `https://${host}${location}`;
+                }
+
+                tracer(location);
                 return;
               }
             }
